@@ -19,20 +19,34 @@ function createFeatures(earthquakeData) {
   // Define a function we want to run once for each feature in the features array
   // Give each feature a popup describing the place and time of the earthquake
   function onEachFeature(feature, layer) {
-    // layer.bindPopup("<h3>" + feature.properties.title +
-    //   "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
+     layer.bindPopup(`<p>Magnitiude: ${feature.properties.mag}</p><p>Depth: 
+     ${feature.geometry.coordinates[2]}</p><p>Location: ${feature.properties.place}</p>`);
   }
 
    function markerSize(magnitude) {
         if (magnitude === 0) {
          return 1;}
         // return magnitude / 40;
-        else {return (magnitude)*50000
+        else {return (magnitude)*50000//50000
         }
     };
 
     // function colorFill(depth) {
     //     switch 
+    // }
+    // Update tip text
+    // switch(chosenYAxis) {
+    //   case 'smokes':
+    //     chosenYAxisBubble = "Smokes";  
+    //     break;
+    //   case 'healthcare':
+    //     chosenYAxisBubble = "Lacks Healthcare";
+    //     console.log(chosenYAxis);
+    //     break;
+    //   case 'obesity':
+    //     chosenYAxisBubble = "Obese";
+    //     console.log(chosenYAxis);
+    //     break;
     // }
 
   // Create a GeoJSON layer containing the features array on the earthquakeData object
@@ -42,12 +56,12 @@ function createFeatures(earthquakeData) {
   });
 
   var mags = L.geoJSON(earthquakeData, {
-    //onEachFeature: onEachFeature,
+    onEachFeature: onEachFeature,
     pointToLayer: (feature, latlng) => {
       return new L.Circle(latlng, {
         radius: markerSize(feature.properties.mag),//Math.sqrt(feature.properties.mag)*100,//markerSize(feature.properties.mag),//feature.properties.mag*20000,
         fillColor: "red",
-        fillOpacity: 100,
+        fillOpacity: .25,
         stroke: false 
       });
     }
@@ -91,9 +105,10 @@ function createMap(earthquakes, mags) {
   // Create our map, giving it the streetmap and earthquakes layers to display on load
   var myMap = L.map("map", {
     center: [
-        15.5994, -28.6731
+        37.09, -95.71
+        //15.5994, -28.6731
     ],
-    zoom: 3,
+    zoom: 4,
     layers: [lightmap, mags]
   });
 
