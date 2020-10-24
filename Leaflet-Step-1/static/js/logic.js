@@ -1,6 +1,7 @@
 // Store our API endpoint inside queryUrl
 var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
+
 // Perform a GET request to the query URL
 d3.json(queryUrl).then(data => {
   console.log(data);
@@ -31,24 +32,24 @@ function createFeatures(earthquakeData) {
         }
     };
 
-    // function colorFill(depth) {
-    //     switch 
-    // }
-    // Update tip text
-    // switch(chosenYAxis) {
-    //   case 'smokes':
-    //     chosenYAxisBubble = "Smokes";  
-    //     break;
-    //   case 'healthcare':
-    //     chosenYAxisBubble = "Lacks Healthcare";
-    //     console.log(chosenYAxis);
-    //     break;
-    //   case 'obesity':
-    //     chosenYAxisBubble = "Obese";
-    //     console.log(chosenYAxis);
-    //     break;
-    // }
+    function colorFill(depth) {
+        switch (true) {
+        case depth > 90:
+          return "#ea2c2c";
+        case depth > 70:
+          return "#ea822c";
+        case depth > 50:
+          return "#ee9c00";
+        case depth > 30:
+          return "#eecc00";
+        case depth > 10:
+          return "#d4ee00";
+        default:
+          return "#98ee00";
+        }
+      }
 
+ 
   // Create a GeoJSON layer containing the features array on the earthquakeData object
   // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
@@ -60,9 +61,10 @@ function createFeatures(earthquakeData) {
     pointToLayer: (feature, latlng) => {
       return new L.Circle(latlng, {
         radius: markerSize(feature.properties.mag),//Math.sqrt(feature.properties.mag)*100,//markerSize(feature.properties.mag),//feature.properties.mag*20000,
-        fillColor: "red",
-        fillOpacity: .25,
-        stroke: false 
+        fillColor: colorFill(feature.geometry.coordinates[2]),
+        fillOpacity: 0.7,
+        color: "black",
+        weight: 0.5
       });
     }
   });
