@@ -10,18 +10,25 @@ With earthquake data from the USGS, create a map using *Leaflet* and plot all of
 
 ### Files and Folders
 
-* [D3_data_journalism](D3_data_journalism/) - this folder holds all the files for this challenge
-    * [Main Page](D3_data_journalism/index.html) - this *index.html* file is the webpage that should be opened in a browser and displays the scatter plots.
-        * [assets](D3_data_journalism/assets) - this folder holds all the files and subfolders used to format and manipulate the webpage
-            * [css](D3_data_journalism/assets/css/) - this folder holds the stylesheet files that help format the webpage
-                * [d3Style.css](D3_data_journalism/assets/css/d3Style.css) - this *CSS* file contains the D3 formatting for the webpage including the D3-tip styling
-                * [style.css](D3_data_journalism/assets/css/style.css) - this *CSS* file helps format the webpage
-            * [data](D3_data_journalism/assets/data/) - this folder holds the dataset file that was used
-                * [data.csv](D3_data_journalism/assets/data/data.csv) - this *CSV* file contains the Census Bureau dataset
-            * [js](D3_data_journalism/assets/js/) - this folder holds the the *JavaScript* file
-                * [.eslintrc.json](D3_data_journalism/assets/js/.eslintrc.json)
-                * [app.js](D3_data_journalism/assets/js/app.js) - this file contains the *JavaScript* script that manipulates the *HTML* page; this file is for the **Core Assignment** part of the challenge
-                * [bonusapp.js](D3_data_journalism/assets/js/bonusapp.js) - this file contains the *Javascript* script that manipulates the *HTML* page; this file is for the **Bonus** part of the challenge
+#### Level 1
+* [Leaflet-Step-1](Leaflet-Step-1/) - this folder holds all the files for this part of the challenge
+    * [Main Page](Leaflet-Step-1/index.html) - this *index.html* file is the webpage that should be opened in a browser and displays the map.
+        * [static](Leaflet-Step-1/static/) - this folder holds all the files and subfolders used to format and manipulate the webpage
+            * [css](Leaflet-Step-1/static/css/) - this folder holds the stylesheet file that helps format the webpage
+                * [style.css](Leaflet-Step-1/static/css/style.css) - this *CSS* file helps format the webpage
+            * [js](Leaflet-Step-1/static/js/) - this folder holds the *JavaScript* file
+                * [logic.js](Leaflet-Step-1/static/js/logic.js) - this file contains the *JavaScript* script that manipulates the *HTML* page; this file is for the **Level 1** part of the challenge
+                * [config.js](Leaflet-Step-1/static/js/config.js) - this file contains the *Mapbox* API key that is needed for this webpage and will need to be created by the user (more details in the *[Notes](#Notes)* section below)
+
+#### Level 2
+* [Leaflet-Step-2](Leaflet-Step-2/) - this folder holds all the files for this part of the challenge
+    * [Main Page](Leaflet-Step-2/index.html) - this *index.html* file is the webpage that should be opened in a browser and displays the map.
+        * [static](Leaflet-Step-2/static/) - this folder holds all the files and subfolders used to format and manipulate the webpage
+            * [css](Leaflet-Step-2/static/css/) - this folder holds the stylesheet file that helps format the webpage
+                * [style.css](Leaflet-Step-2/static/css/style.css) - this *CSS* file helps format the webpage
+            * [js](Leaflet-Step-2/static/js/) - this folder holds the *JavaScript* file
+                * [logic.js](Leaflet-Step-2/static/js/logic.js) - this file contains the *JavaScript* script that manipulates the *HTML* page; this file is for the **Level 2** part of the challenge
+                * [config.js](Leaflet-Step-2/static/js/config.js) - this file contains the *Mapbox* API key that is needed for this webpage and will need to be created by the user (more details in the *[Notes](#Notes)* section below)
 
 
 ## Development and Analysis
