@@ -1,44 +1,42 @@
-// Store our API endpoint inside queryUrl
-var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+// Store our API endpoints inside variables
+var seismicURL = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json";
+var earthquakeUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 
 // Perform a GET request to the query URL
-d3.json(queryUrl).then(data => {
+Promise.all([d3.json(seismicURL), d3.json(earthquakeUrl)]).then(([seismicData, data]) => {
+//d3.json(earthquakeUrl).then(data => {
+    console.log(seismicData);
   console.log(data);
   // Once we get a response, send the data.features object to the createFeatures function
   createFeatures(data.features);
 });
 
-// // Function to determine marker size based on magnitude
-// function markerSize(magnitude) {
-//     // return magnitude / 40;
-//     return Math.sqrt(feature.properties.mag)*100;
-// }
-
+// Get the color for the depths
 function colorFill(depth) {
-  if (depth > 90) {
-    return "#EA2C2C"//"#ea2c2c"
-  } else if (depth > 70) {
-    return "#D3631F" //"#ea822c"
-  } else if (depth > 50) {
-    return "#ee9c00"
-  } else if (depth > 30) {
-    return "#eecc00"
-  } else if (depth > 10) {
-    return "#d4ee00"
-  } else {
-    return "#98ee00"
-  }
+    if (depth > 90) {
+        return "#EA2C2C"//"#ea2c2c"
+    } else if (depth > 70) {
+        return "#D3631F" //"#ea822c"
+    } else if (depth > 50) {
+        return "#ee9c00"
+    } else if (depth > 30) {
+        return "#eecc00"
+    } else if (depth > 10) {
+        return "#d4ee00"
+    } else {
+        return "#98ee00"
+    }
 };
 
 function createFeatures(earthquakeData) {
 
-  // Define a function we want to run once for each feature in the features array
-  // Give each feature a popup describing the place and time of the earthquake
-  function onEachFeature(feature, layer) {
-      layer.bindPopup(`<p>Magnitiude: ${feature.properties.mag}</p><p>Depth: 
-      ${feature.geometry.coordinates[2]}</p><p>Location: ${feature.properties.place}</p>`);
-  };
+    // Define a function we want to run once for each feature in the features array
+    // Give each feature a popup describing the place and time of the earthquake
+    function onEachFeature(feature, layer) {
+        layer.bindPopup(`<p>Magnitiude: ${feature.properties.mag}</p><p>Depth: 
+        ${feature.geometry.coordinates[2]}</p><p>Location: ${feature.properties.place}</p>`);
+    };
 
    function markerSize(magnitude) {
         if (magnitude === 0) {
@@ -65,30 +63,30 @@ function createFeatures(earthquakeData) {
     // };
     
 
-  // Create a GeoJSON layer containing the features array on the earthquakeData object
-  // Run the onEachFeature function once for each piece of data in the array
-  var earthquakes = L.geoJSON(earthquakeData, {
-    onEachFeature: onEachFeature,
-  });
+    // Create a GeoJSON layer containing the features array on the earthquakeData object
+    // Run the onEachFeature function once for each piece of data in the array
+    var seismic = L.geoJSON(earthquakeData, {
+        onEachFeature: onEachFeature,
+    });
 
-  var mags = L.geoJSON(earthquakeData, {
-    onEachFeature: onEachFeature,
-    pointToLayer: (feature, latlng) => {
-      return new L.Circle(latlng, {
-        radius: markerSize(feature.properties.mag),//Math.sqrt(feature.properties.mag)*100,//markerSize(feature.properties.mag),//feature.properties.mag*20000,
-        fillColor: colorFill(feature.geometry.coordinates[2]),
-        fillOpacity: 0.8,
-        color: "black",
-        weight: 0.5
-      });
+    var mags = L.geoJSON(earthquakeData, {
+        onEachFeature: onEachFeature,
+        pointToLayer: (feature, latlng) => {
+        return new L.Circle(latlng, {
+            radius: markerSize(feature.properties.mag),//Math.sqrt(feature.properties.mag)*100,//markerSize(feature.properties.mag),//feature.properties.mag*20000,
+            fillColor: colorFill(feature.geometry.coordinates[2]),
+            fillOpacity: 0.8,
+            color: "black",
+            weight: 0.5
+        });
+        }
+    });
+
+    // Sending our earthquakes layer to the createMap function
+    createMap(seismic, mags);
     }
-  });
 
-  // Sending our earthquakes layer to the createMap function
-  createMap(earthquakes, mags);
-}
-
-function createMap(earthquakes, mags) {
+function createMap(seismic, mags) {
 
     // Define streetmap and darkmap layers
     var satellite = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -123,7 +121,7 @@ function createMap(earthquakes, mags) {
 
     // Create overlay object to hold our overlay layer
     var overlayMaps = {
-        "Tectonic Plates": earthquakes,
+        "Tectonic Plates": seismic,
         Earthquakes: mags
     };
 
