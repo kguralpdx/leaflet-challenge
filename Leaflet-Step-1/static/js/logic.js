@@ -15,6 +15,22 @@ d3.json(queryUrl).then(data => {
 //     return Math.sqrt(feature.properties.mag)*100;
 // }
 
+function colorFill(depth) {
+  if (depth > 90) {
+    return "#ea2c2c"
+  } else if (depth > 70) {
+    return "#ea822c"
+  } else if (depth > 50) {
+    return "#ee9c00"
+  } else if (depth > 30) {
+    return "#eecc00"
+  } else if (depth > 10) {
+    return "#d4ee00"
+  } else {
+    return "#98ee00"
+  }
+};
+
 function createFeatures(earthquakeData) {
 
   // Define a function we want to run once for each feature in the features array
@@ -28,28 +44,27 @@ function createFeatures(earthquakeData) {
         if (magnitude === 0) {
          return 1;}
         // return magnitude / 40;
-        else {return (magnitude)*50000//50000
+        else {return (magnitude)*50000
         }
     };
 
-    function colorFill(depth) {
-        switch (true) {
-        case depth > 90:
-          return "#ea2c2c";
-        case depth > 70:
-          return "#ea822c";
-        case depth > 50:
-          return "#ee9c00";
-        case depth > 30:
-          return "#eecc00";
-        case depth > 10:
-          return "#d4ee00";
-        default:
-          return "#98ee00";
-        }
-      }
+    // function colorFill(depth) {
+    //   if (depth > 90) {
+    //     return "#ea2c2c"
+    //   } else if (depth > 70) {
+    //     return "#ea822c"
+    //   } else if (depth > 50) {
+    //     return "#ee9c00"
+    //   } else if (depth > 30) {
+    //     return "#eecc00"
+    //   } else if (depth > 10) {
+    //     return "#d4ee00"
+    //   } else {
+    //     return "#98ee00"
+    //   }
+    // };
+    
 
- 
   // Create a GeoJSON layer containing the features array on the earthquakeData object
   // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
@@ -120,4 +135,34 @@ function createMap(earthquakes, mags) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+
+  // color function to be used when creating the legend
+  function getColor(d) {
+    return d > 90 ? '#ff3333' :
+            d > 70  ? '#ff6633' :
+            d > 50  ? '#ff9933' :
+            d > 30  ? '#ffcc33' :
+            d > 10  ? '#ffff33' :
+                    '#ccff33';
+  }; 
+
+  // Add legend to map
+  var legend = L.control({position: "bottomright"});
+
+  legend.onAdd = function (map) {
+    var div = L.DomUtil.create("div", "info legend"),
+    depths = [0, 10, 30, 50, 70, 90],
+    labels = [];
+
+    // loop through the depth intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < depths.length; i++) {
+      div.innerHTML += 
+        // `<i style="background:` + colorFill(depths[i] + 1) + `"></i> ` + 
+        // depths[i] + (depths[i + 1] ? `&ndash;` + depths[i + 1] + `<br>` : `+`);
+        '<i style="background:' + getColor(depths[i] + 1) + '"></i> ' +
+        depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + '<br>' : '+');
+    }
+    return div;
+  };
+  legend.addTo(myMap);
 }
