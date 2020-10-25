@@ -17,9 +17,9 @@ d3.json(queryUrl).then(data => {
 
 function colorFill(depth) {
   if (depth > 90) {
-    return "#ea2c2c"
+    return "#ff3333"//"#ea2c2c"
   } else if (depth > 70) {
-    return "#ea822c"
+    return "#ff6633" //"#ea822c"
   } else if (depth > 50) {
     return "#ee9c00"
   } else if (depth > 30) {
@@ -136,22 +136,22 @@ function createMap(earthquakes, mags) {
     collapsed: false
   }).addTo(myMap);
 
-  // color function to be used when creating the legend
-  function getColor(d) {
-    return d > 90 ? '#ff3333' :
-            d > 70  ? '#ff6633' :
-            d > 50  ? '#ff9933' :
-            d > 30  ? '#ffcc33' :
-            d > 10  ? '#ffff33' :
-                    '#ccff33';
-  }; 
+    // color function to be used when creating the legend
+    function getColor(d) {
+      return d > 90 ? '#ff3333' :
+             d > 70  ? '#ff6633' :
+             d > 50  ? '#ff9933' :
+             d > 30  ? '#ffcc33' :
+             d > 10  ? '#ffff33' :
+                     '#98ee00';
+    }; 
 
   // Add legend to map
   var legend = L.control({position: "bottomright"});
 
-  legend.onAdd = function (map) {
+  legend.onAdd = function () {
     var div = L.DomUtil.create("div", "info legend"),
-    depths = [0, 10, 30, 50, 70, 90],
+    depths = [-9, 10, 30, 50, 70, 91],
     labels = [];
 
     // loop through the depth intervals and generate a label with a colored square for each interval
@@ -159,7 +159,7 @@ function createMap(earthquakes, mags) {
       div.innerHTML += 
         // `<i style="background:` + colorFill(depths[i] + 1) + `"></i> ` + 
         // depths[i] + (depths[i + 1] ? `&ndash;` + depths[i + 1] + `<br>` : `+`);
-        '<i style="background:' + getColor(depths[i] + 1) + '"></i> ' +
+        '<i style="background:' + colorFill(depths[i] + 1) + '"></i> ' +
         depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + '<br>' : '+');
     }
     return div;
