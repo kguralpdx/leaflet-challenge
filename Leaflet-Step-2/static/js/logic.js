@@ -9,7 +9,7 @@ Promise.all([d3.json(seismicURL), d3.json(earthquakeUrl)]).then(([seismicData, d
     console.log(seismicData);
   console.log(data);
   // Once we get a response, send the data.features object to the createFeatures function
-  createFeatures(data.features);
+  createFeatures(seismicData.features, data.features);
 });
 
 // Get the color for the depths
@@ -29,16 +29,17 @@ function colorFill(depth) {
     }
 };
 
-function createFeatures(earthquakeData) {
+function createFeatures(tectonicData, earthquakeData) {
 
     // Define a function we want to run once for each feature in the features array
-    // Give each feature a popup describing the place and time of the earthquake
+    // Give each feature a popup describing the magnitude, depth and location of the earthquake
     function onEachFeature(feature, layer) {
         layer.bindPopup(`<p>Magnitiude: ${feature.properties.mag}</p><p>Depth: 
         ${feature.geometry.coordinates[2]}</p><p>Location: ${feature.properties.place}</p>`);
     };
 
-   function markerSize(magnitude) {
+    // Create the function to calculate the circle radius based on magnitude
+    function markerSize(magnitude) {
         if (magnitude === 0) {
          return 1;}
         // return magnitude / 40;
@@ -46,27 +47,20 @@ function createFeatures(earthquakeData) {
         }
     };
 
-    // function colorFill(depth) {
-    //   if (depth > 90) {
-    //     return "#ea2c2c"
-    //   } else if (depth > 70) {
-    //     return "#ea822c"
-    //   } else if (depth > 50) {
-    //     return "#ee9c00"
-    //   } else if (depth > 30) {
-    //     return "#eecc00"
-    //   } else if (depth > 10) {
-    //     return "#d4ee00"
-    //   } else {
-    //     return "#98ee00"
-    //   }
-    // };
-    
-
-    // Create a GeoJSON layer containing the features array on the earthquakeData object
-    // Run the onEachFeature function once for each piece of data in the array
-    var seismic = L.geoJSON(earthquakeData, {
-        onEachFeature: onEachFeature,
+    // // Create a GeoJSON layer containing the features array on the earthquakeData object
+    // // Run the onEachFeature function once for each piece of data in the array
+    var seismic = L.geoJSON(tectonicData, {
+        //onEachFeature: onEachFeature,
+    //   // Creating a geoJSON layer with the retrieved data
+    // //L.geoJson(seismicData, {
+    //     // Style each feature (in this case a tectonic plate)
+        style: function(feature) {
+            return {
+                color: "#ffba08",
+                fillOpacity: 0,
+                weight: 1.5
+            };
+        }
     });
 
     var mags = L.geoJSON(earthquakeData, {
@@ -161,4 +155,4 @@ function createMap(seismic, mags) {
         return div;
     };
     legend.addTo(myMap);
-}
+};

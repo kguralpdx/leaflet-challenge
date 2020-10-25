@@ -34,19 +34,20 @@ function colorFill(depth) {
 function createFeatures(earthquakeData) {
 
   // Define a function we want to run once for each feature in the features array
-  // Give each feature a popup describing the place and time of the earthquake
+  // Give each feature a popup describing the magnitude, depth and location of the earthquake
   function onEachFeature(feature, layer) {
-      layer.bindPopup(`<p>Magnitiude: ${feature.properties.mag}</p><p>Depth: 
-      ${feature.geometry.coordinates[2]}</p><p>Location: ${feature.properties.place}</p>`);
+    layer.bindPopup(`<p>Magnitiude: ${feature.properties.mag}</p><p>Depth: 
+    ${feature.geometry.coordinates[2]}</p><p>Location: ${feature.properties.place}</p>`);
   };
 
-   function markerSize(magnitude) {
-        if (magnitude === 0) {
-         return 1;}
-        // return magnitude / 40;
-        else {return (magnitude)*50000
-        }
-    };
+  // Create the function to calculate the circle radius based on magnitude
+  function markerSize(magnitude) {
+    if (magnitude === 0) {
+      return 1;}
+      // return magnitude / 40;
+      else {return (magnitude)*50000
+    }
+  };
 
     // function colorFill(depth) {
     //   if (depth > 90) {
