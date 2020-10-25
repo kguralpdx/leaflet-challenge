@@ -123,8 +123,8 @@ function createMap(earthquakes, mags) {
 
     // Create overlay object to hold our overlay layer
     var overlayMaps = {
-        Earthquakes: earthquakes,
-        Magnitudes: mags
+        "Tectonic Plates": earthquakes,
+        Earthquakes: mags
     };
 
     // Create our map, giving it the streetmap and earthquakes layers to display on load
