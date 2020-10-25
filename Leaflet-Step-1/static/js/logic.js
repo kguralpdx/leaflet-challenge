@@ -36,9 +36,9 @@ function createFeatures(earthquakeData) {
   // Define a function we want to run once for each feature in the features array
   // Give each feature a popup describing the place and time of the earthquake
   function onEachFeature(feature, layer) {
-     layer.bindPopup(`<p>Magnitiude: ${feature.properties.mag}</p><p>Depth: 
-     ${feature.geometry.coordinates[2]}</p><p>Location: ${feature.properties.place}</p>`);
-  }
+      layer.bindPopup(`<p>Magnitiude: ${feature.properties.mag}</p><p>Depth: 
+      ${feature.geometry.coordinates[2]}</p><p>Location: ${feature.properties.place}</p>`);
+  };
 
    function markerSize(magnitude) {
         if (magnitude === 0) {
@@ -132,19 +132,9 @@ function createMap(earthquakes, mags) {
   // Create a layer control
   // Pass in our baseMaps and overlayMaps
   // Add the layer control to the map
-  L.control.layers(baseMaps, overlayMaps, {
-    collapsed: false
-  }).addTo(myMap);
-
-    // color function to be used when creating the legend
-    function getColor(d) {
-      return d > 90 ? '#ff3333' :
-             d > 70  ? '#ff6633' :
-             d > 50  ? '#ff9933' :
-             d > 30  ? '#ffcc33' :
-             d > 10  ? '#ffff33' :
-                     '#98ee00';
-    }; 
+  // L.control.layers(baseMaps, overlayMaps, {
+  //   collapsed: false
+  // }).addTo(myMap);
 
   // Add legend to map
   var legend = L.control({position: "bottomright"});
