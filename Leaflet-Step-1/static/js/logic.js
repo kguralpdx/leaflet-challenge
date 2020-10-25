@@ -17,9 +17,9 @@ d3.json(queryUrl).then(data => {
 
 function colorFill(depth) {
   if (depth > 90) {
-    return "#ff3333"//"#ea2c2c"
+    return "#EA2C2C"//"#ea2c2c"
   } else if (depth > 70) {
-    return "#ff6633" //"#ea822c"
+    return "#D3631F" //"#ea822c"
   } else if (depth > 50) {
     return "#ee9c00"
   } else if (depth > 30) {
@@ -77,7 +77,7 @@ function createFeatures(earthquakeData) {
       return new L.Circle(latlng, {
         radius: markerSize(feature.properties.mag),//Math.sqrt(feature.properties.mag)*100,//markerSize(feature.properties.mag),//feature.properties.mag*20000,
         fillColor: colorFill(feature.geometry.coordinates[2]),
-        fillOpacity: 0.7,
+        fillOpacity: 0.8,
         color: "black",
         weight: 0.5
       });
@@ -151,8 +151,8 @@ function createMap(earthquakes, mags) {
 
   legend.onAdd = function () {
     var div = L.DomUtil.create("div", "info legend"),
-    depths = [-9, 10, 30, 50, 70, 91],
-    labels = [];
+    depths = [-9, 11, 31, 51, 71, 91];
+    //labels = [];
 
     // loop through the depth intervals and generate a label with a colored square for each interval
     for (var i = 0; i < depths.length; i++) {
@@ -160,7 +160,7 @@ function createMap(earthquakes, mags) {
         // `<i style="background:` + colorFill(depths[i] + 1) + `"></i> ` + 
         // depths[i] + (depths[i + 1] ? `&ndash;` + depths[i + 1] + `<br>` : `+`);
         '<i style="background:' + colorFill(depths[i] + 1) + '"></i> ' +
-        depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + '<br>' : '+');
+        depths[i] + (depths[i + 1] ? '&ndash;' + (depths[i + 1] - 1) + '<br>' : '+');
     }
     return div;
   };
