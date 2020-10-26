@@ -5,7 +5,7 @@
 
 Welcome to the United States Geological Survey, or USGS for short! The USGS is responsible for providing scientific data about natural hazards, the health of our ecosystems and environment; and the impacts of climate and land-use change. Their scientists develop new methods and tools to supply timely, relevant, and useful information about the Earth and its processes.
 
-With earthquake data from the USGS, create a map using *Leaflet* and plot all of the earthqukes based on longitude and latitude. The size of the markers, or circles, should reflect the magnitude of the earthquake and the color should reflect the earthquake's depth; the bigger the circle, the bigger the earthquake and the darker the color, the deeper the earthquake. *Level 2* then takes that map and data and adds tectonic plates to illustrate the relationship between the tectonic plates and seismic activity. A second set of data was pulled in along with the original dataset. Two more base maps were added with the option to pick any one of the three. The two datasets are separated out into overlays that can be turned on and off.
+With earthquake data from the USGS, create a map using *Leaflet* and plot all of the earthquakes based on longitude and latitude. The size of the markers, or circles, should reflect the magnitude of the earthquake and the color should reflect the earthquake's depth; the bigger the circle, the bigger the earthquake, and the darker the color, the deeper the earthquake. *Level 2* then takes that map and data and adds tectonic plates to illustrate the relationship between the tectonic plates and seismic activity. A second set of data was pulled in along with the original dataset. Two more base maps were added with the option to pick any one of the three. The two datasets are separated out into overlays that can be turned on and off.
 
 
 ### Files and Folders
@@ -16,8 +16,8 @@ With earthquake data from the USGS, create a map using *Leaflet* and plot all of
         * [static](Leaflet-Step-1/static/) - this folder holds all the files and subfolders used to format and manipulate the webpage
             * [css](Leaflet-Step-1/static/css/) - this folder holds the stylesheet file that helps format the webpage
                 * [style.css](Leaflet-Step-1/static/css/style.css) - this *CSS* file helps format the webpage
-            * [js](Leaflet-Step-1/static/js/) - this folder holds the *JavaScript* file
-                * [logic.js](Leaflet-Step-1/static/js/logic.js) - this file contains the *JavaScript* script that manipulates the *HTML* page; this file is for the **Level 1** part of the challenge
+            * [js](Leaflet-Step-1/static/js/) - this folder holds the *JavaScript* files
+                * [logic.js](Leaflet-Step-1/static/js/logic.js) - this file contains the *JavaScript* script that manipulates the *HTML* page; this file is for the *Level 1* part of the challenge
                 * [configEDIT.js](Leaflet-Step-1/static/js/configEDIT.js) - this file should contain the *Mapbox* API key that is needed for this webpage and the file **MUST** be renamed to ***config.js*** (more details in the *[Notes](#Notes)* section below)
 
 #### Level 2
@@ -26,8 +26,8 @@ With earthquake data from the USGS, create a map using *Leaflet* and plot all of
         * [static](Leaflet-Step-2/static/) - this folder holds all the files and subfolders used to format and manipulate the webpage
             * [css](Leaflet-Step-2/static/css/) - this folder holds the stylesheet file that helps format the webpage
                 * [style.css](Leaflet-Step-2/static/css/style.css) - this *CSS* file helps format the webpage
-            * [js](Leaflet-Step-2/static/js/) - this folder holds the *JavaScript* file
-                * [logic.js](Leaflet-Step-2/static/js/logic.js) - this file contains the *JavaScript* script that manipulates the *HTML* page; this file is for the **Level 2** part of the challenge
+            * [js](Leaflet-Step-2/static/js/) - this folder holds the *JavaScript* files
+                * [logic.js](Leaflet-Step-2/static/js/logic.js) - this file contains the *JavaScript* script that manipulates the *HTML* page; this file is for the *Level 2* part of the challenge
                 * [configEDIT.js](Leaflet-Step-2/static/js/configEDIT.js) - this file should contain the *Mapbox* API key that is needed for this webpage and the file **MUST** be renamed to ***config.js*** (more details in the *[Notes](#Notes)* section below)
 
 
