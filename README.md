@@ -62,7 +62,7 @@ The end result is below:
 
 ## Notes
 
-**This must be done before you open the webpage**. In order to get the map to work, you will need to obtain an access token from [Mapbox](https://www.mapbox.com/). If you don't have an account, you can create one for free and then just use the *Default public token*. Once you have your API key, you will need to copy that into a file named *config.js* and save it in the *js* folder of each of the levels--*Leaflet-Step-1* or *Leaflet-Step-2* with the following format: 
+**This must be done before you open the webpage**: in order to get the map to work, you will need to obtain an access token from [Mapbox](https://www.mapbox.com/). If you don't have an account, you can create one for free and then just use the *Default public token*. Once you have your API key, you will need to copy that into a file named *config.js* and save it in the *js* folder of each of the levels--*Leaflet-Step-1* or *Leaflet-Step-2* with the following format: 
 
 `const API_KEY = "<YOUR_ACCESS_TOKEN_HERE>"`
 
