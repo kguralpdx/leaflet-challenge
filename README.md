@@ -1,4 +1,4 @@
-# leaflet-challenge
+#### leaflet-challenge
 # Visualizing Data with Leaflet
 
 ## Overview
@@ -49,17 +49,15 @@ The end result is as follows:
 
 ### Level 2: More Data
 
-To do the *Bonus* section, I first started with the code I used from the *Core* assignment and saved that to a new file called *bonusapp.js*. This is the file I used for the *Bonus* section, just in case I couldn't get it working but in the process messed up the original *Core* code. So the *app.js* file was not modified or used directly for the *Bonus* section. I did have to add a new `<script>` element to the *index.html* file to use the *bonusapp.js* file instead.
+Since *Level 2* builds on what was created in *Level 1*, I copied the files over from that section and used them as the starting point for *Level 2*. Since this level pulls in another dataset in addition to the earthquake dataset, I decided to get that portion done first. It took a bit of searching on the site we were given, but I finally tracked down the tectonic plates data that I could use. Now I know what the *Raw* button is for in *GitHub*. Tested out the data using `console.log` and with that working successfully, moved on to the base layers.
 
-With all that set up, I started adding to the *bonusapp.js* file. I did change the left margin to account for the additional axes title labels. I added parameters to hold informtion about which x or y axis label was selected and the data that goes along with it. Since the data changes are controlled by clicking one of the axes' labels, I needed to set those parameters up with initial values so there would be data showing initially. Had to modify the scales calculations to accept the parameters. Started with just working on the x-axis but once I got all the code added and working, I mainly duplicated that for the y-axis changes as well. I did add a *click* event and *transition* code to trigger the circle and axes scale changes and have those changes display visually.
+There are 3 different base layers for this map--Satellite, Grayscale (which was the one used in *Level 1*) and Outdoors. Set up the base layers in the code and added the control to the page that would allow the user to select which base layer they wanted to display. It's the base layer, though, so only one can display at a time.
 
-I did run into an issue with circles and the state abbreviations. I could get the circles to transition but the state abbreviations wouldn't move. Resolved that by adding group tags to the SVG container for the circles and the state abbreviations and then adding the circles and text to those.
-
-Next I added the *d3-tip* tooltips to each circle. I did this by adding a `<script>` tag to the *index.html* file for the *d3-tip* library. Then I added some styling to the *d3Style.css* file. After that, I started modifying the code in the *bonusapp.js* file. I added the *tip* function, and a *tooltip* function for what data and how that data would be displayed, and added the `.on('mouseover, )` and `.on(mouseout`) properties to the circles append function. One issue I ran into there was that poverty is a percentage whereas age and household income are not. But all three are on the x-axis and needed to be displayed in the tooltip correctly. At first I was going to just have the *(%)* shown as part of the label in the tooltip so the number from the data would display just that, a number. But I figured out how to add or remove the *%* depending on which label was clicked so I used that approach instead.
+Got the overlays layer done and added to the control so the user can not only select the base layer but also the overlay. Unlike the base layers, both or just one overlay can be selected at once. Had to work on the color that outlined the tectonic plates and figure out what setting controlled that, but I did get that set. Looks the best and is most visible on the *Satellite* base layer.
 
 The end result is below:
 
-![Images/bonus.PNG](Images/bonus.PNG)
+![Images/level_2.PNG](Images/level_2.PNG)
 
 
 ## Notes

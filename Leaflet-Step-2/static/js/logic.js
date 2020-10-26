@@ -7,9 +7,9 @@ var earthquakeUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/a
 Promise.all([d3.json(seismicURL), d3.json(earthquakeUrl)]).then(([seismicData, data]) => {
 //d3.json(earthquakeUrl).then(data => {
     console.log(seismicData);
-  console.log(data);
-  // Once we get a response, send the data.features object to the createFeatures function
-  createFeatures(seismicData.features, data.features);
+    console.log(data);
+    // Once we get a response, send the data.features object to the createFeatures function
+    createFeatures(seismicData.features, data.features);
 });
 
 // Get the color for the depths
@@ -50,10 +50,6 @@ function createFeatures(tectonicData, earthquakeData) {
     // // Create a GeoJSON layer containing the features array on the earthquakeData object
     // // Run the onEachFeature function once for each piece of data in the array
     var seismic = L.geoJSON(tectonicData, {
-        //onEachFeature: onEachFeature,
-    //   // Creating a geoJSON layer with the retrieved data
-    // //L.geoJson(seismicData, {
-    //     // Style each feature (in this case a tectonic plate)
         style: function(feature) {
             return {
                 color: "#ffba08",
@@ -122,7 +118,7 @@ function createMap(seismic, mags) {
     // Create our map, giving it the streetmap and earthquakes layers to display on load
     var myMap = L.map("map", {
         center: [
-            37.09, -95.71
+            37.09, -65.71
             //15.5994, -28.6731
         ],
         zoom: 4,
