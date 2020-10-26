@@ -5,7 +5,6 @@ var earthquakeUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/a
 
 // Perform a GET request to the query URL
 Promise.all([d3.json(seismicURL), d3.json(earthquakeUrl)]).then(([seismicData, data]) => {
-//d3.json(earthquakeUrl).then(data => {
     console.log(seismicData);
     console.log(data);
     // Once we get a response, send the data.features object to the createFeatures function
@@ -15,9 +14,9 @@ Promise.all([d3.json(seismicURL), d3.json(earthquakeUrl)]).then(([seismicData, d
 // Get the color for the depths
 function colorFill(depth) {
     if (depth > 90) {
-        return "#EA2C2C"//"#ea2c2c"
+        return "#EA2C2C"
     } else if (depth > 70) {
-        return "#D3631F" //"#ea822c"
+        return "#D3631F" 
     } else if (depth > 50) {
         return "#ee9c00"
     } else if (depth > 30) {
@@ -29,6 +28,7 @@ function colorFill(depth) {
     }
 };
 
+// Function that creates the features for the map
 function createFeatures(tectonicData, earthquakeData) {
 
     // Define a function we want to run once for each feature in the features array
@@ -42,13 +42,11 @@ function createFeatures(tectonicData, earthquakeData) {
     function markerSize(magnitude) {
         if (magnitude === 0) {
          return 1;}
-        // return magnitude / 40;
         else {return (magnitude)*50000
         }
     };
 
-    // // Create a GeoJSON layer containing the features array on the earthquakeData object
-    // // Run the onEachFeature function once for each piece of data in the array
+    // Create a GeoJSON layer containing the features array on the tectonicData object
     var seismic = L.geoJSON(tectonicData, {
         style: function(feature) {
             return {
@@ -59,11 +57,12 @@ function createFeatures(tectonicData, earthquakeData) {
         }
     });
 
+    // Create a GeoJSON layer containing the features array on the earthquakeData object
     var mags = L.geoJSON(earthquakeData, {
         onEachFeature: onEachFeature,
         pointToLayer: (feature, latlng) => {
         return new L.Circle(latlng, {
-            radius: markerSize(feature.properties.mag),//Math.sqrt(feature.properties.mag)*100,//markerSize(feature.properties.mag),//feature.properties.mag*20000,
+            radius: markerSize(feature.properties.mag),
             fillColor: colorFill(feature.geometry.coordinates[2]),
             fillOpacity: 0.8,
             color: "black",
@@ -76,6 +75,7 @@ function createFeatures(tectonicData, earthquakeData) {
     createMap(seismic, mags);
     }
 
+// Function to create the map with both sets of data
 function createMap(seismic, mags) {
 
     // Define streetmap and darkmap layers
@@ -115,11 +115,10 @@ function createMap(seismic, mags) {
         Earthquakes: mags
     };
 
-    // Create our map, giving it the streetmap and earthquakes layers to display on load
+    // Create our map, giving it the Satellite and Earthquakes layers to display on load
     var myMap = L.map("map", {
         center: [
             37.09, -65.71
-            //15.5994, -28.6731
         ],
         zoom: 4,
         layers: [satellite, mags]
@@ -138,13 +137,10 @@ function createMap(seismic, mags) {
     legend.onAdd = function () {
         var div = L.DomUtil.create("div", "info legend"),
         depths = [-9, 11, 31, 51, 71, 91];
-        //labels = [];
 
         // loop through the depth intervals and generate a label with a colored square for each interval
         for (var i = 0; i < depths.length; i++) {
         div.innerHTML += 
-            // `<i style="background:` + colorFill(depths[i] + 1) + `"></i> ` + 
-            // depths[i] + (depths[i + 1] ? `&ndash;` + depths[i + 1] + `<br>` : `+`);
             '<i style="background:' + colorFill(depths[i] + 1) + '"></i> ' +
             depths[i] + (depths[i + 1] ? '&ndash;' + (depths[i + 1] - 1) + '<br>' : '+');
         }
