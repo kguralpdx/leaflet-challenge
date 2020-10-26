@@ -35,13 +35,13 @@ With earthquake data from the USGS, create a map using *Leaflet* and plot all of
 
 ### Level 1: Basic Visualization
 
-Since we need to use an access token for *Mapbox*, I started of by created the *config.js* file that contained my API key. Once that file was added to the *js* folder, I started working on the script. First task to do was to decide on the dataset I would be using from the USGS website. I chose *'All Earthquakes from the Past 7 Days'*. I added the URL for this *JSON* to the script and `console.log`-ed it to make sure it worked and to look at the data and structure. I created this script with the knowledge that I would be using it for the *Level 2* portion of the challenge as well so set it up the base layers and overlays options in mind. Since the size of the circles would represent the magnitudge of the earthquakes, I created a funtion to determine that. It took some trial and error to get the circles to display large enough.
+Since we need to use an access token for *Mapbox*, I started off by creating the *config.js* file that contained my API key. Once that file was added to the *js* folder, I started working on the script. First task to do was to decide on the dataset I would be using from the USGS website. I chose *'All Earthquakes from the Past 7 Days'*. I added the URL for this *JSON* to the script and `console.log`-ed it to make sure it worked and to look at the data and structure. I created this script with the knowledge that I would be using it for the *Level 2* portion of the challenge as well so set it up with the base layers and overlays options in mind. Since the size of the circles would represent the magnitudge of the earthquakes, I created a funtion to determine that. It took some trial and error to get the circles to display large enough.
 
 Then I worked on the color for the circles which would represent the depth of the earthquake. Based on the example we had, I needed to add 6 different colors. With the help of [Coolors](https://coolors.co/gradient-palette/ea2c2c-98ee00?number=7), I got my 6 colors picked out. So I created a function to work with those. Once the coloring was added, it took some testing to get the `fillOpacity` set to the setting I wanted along with the `weight` of the circle border.
 
-Next came the pop-ups which proved more challenging than I expected. I could get them to display the data but the space between the lines of text in the pop-up box was really big. Used *Chrome Inspector* to finally track down the setting for that and added it to the *style.css* file. 
+Next came the pop-ups which proved more challenging than I expected; I could get them to display the data but the space between the lines of text in the pop-up box was really big. Used *Chrome Inspector* to finally track down the setting for that and added it to the *style.css* file. 
 
-Had everything displaying correctly on the map so it was time to tackle the Legend. This part proved the most challenging of this *Level 1* portion. At first I could get the depths to show up but no colors and the Legend was transparent. Fixed a lot of the Legend formatting issues by adding style formatting information to the *style.css* file. Also realized I needed to move the color function out of the *createFeatures* function and just make it an independent function because it also needed to be used in the *createMap* function, which is where the Legend is created. the only part left with the Legend was to get the depths ranges to display correctly. They were displaying with duplicate start or end values. For example, *30-50* and then *50-70*, etc. Had to change my start value and then subtract 1 from the end value.
+Had everything displaying correctly on the map so it was time to tackle the Legend. This part proved the most challenging of this *Level 1* portion. At first I could get the depths to show up but no colors and the Legend was transparent. Fixed a lot of the Legend formatting issues by adding style formatting information to the *style.css* file. Also realized I needed to move the color function out of the *createFeatures* function and just make it an independent function because it also needed to be used in the *createMap* function, which is where the Legend is created. The only part left with the Legend was to get the depth ranges to display correctly. They were displaying with duplicate start or end values. For example, *30-50* and then *50-70*, etc. Had to change my start value and then subtract 1 from the end value.
 
 The end result is as follows:
 
@@ -53,7 +53,7 @@ Since *Level 2* builds on what was created in *Level 1*, I copied the files over
 
 There are 3 different base layers for this map--Satellite, Grayscale (which was the one used in *Level 1*) and Outdoors. Set up the base layers in the code and added the control to the page that would allow the user to select which base layer they wanted to display. It's the base layer, though, so only one can display at a time.
 
-Got the overlays layer done and added to the control so the user can not only select the base layer but also the overlay. Unlike the base layers, both or just one overlay can be selected at once. Had to work on the color that outlined the tectonic plates and figure out what setting controlled that, but I did get that set. Looks the best and is most visible on the *Satellite* base layer.
+Then I got the overlays layer done and added to the control so the user can not only select the base layer but also the overlay. Unlike the base layers, though, both or just one overlay can be selected and displayed at once. I did have to work on the color used to outline the tectonic plates and figure out what setting controlled that because the color it was using initially was rather difficult to see on each of the base layers. The color I ended up going with, however, does look the best and is most visible on the *Satellite* base layer.
 
 The end result is below:
 
@@ -62,7 +62,7 @@ The end result is below:
 
 ## Notes
 
-In order to get the map to work, you will need to obtain an access token from [Mapbox](https://www.mapbox.com/). If you don't have an account, you can create one for free and then just use the *Default public token*. Once you have your API key, you will need to copy that into a file named *config.js* and save it in the *js* folder of each of the levels--*Leaflet-Step-1* or *Leaflet-Step-2* with the following format: 
+**This must be done before you open the webpage**. In order to get the map to work, you will need to obtain an access token from [Mapbox](https://www.mapbox.com/). If you don't have an account, you can create one for free and then just use the *Default public token*. Once you have your API key, you will need to copy that into a file named *config.js* and save it in the *js* folder of each of the levels--*Leaflet-Step-1* or *Leaflet-Step-2* with the following format: 
 
 `const API_KEY = "<YOUR_ACCESS_TOKEN_HERE>"`
 
